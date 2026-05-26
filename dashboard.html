@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-950">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaaS Admin Pro - Inteligencia Financiera</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Dashboard de analítica comercial e inteligencia financiera para pequeños negocios. Gestión inteligente.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/global.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            slate: {
+              950: '#0b0f19',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-full flex flex-col bg-slate-950 text-slate-100 font-sans antialiased overflow-hidden">
+  
+  <!-- Content Wrapper -->
+  <div class="flex-1 flex overflow-hidden relative w-full">
+    
+    <!-- BACKGROUND GRADIENTS -->
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-600/5 rounded-full blur-3xl -z-10 animate-glow"></div>
+    <div class="absolute bottom-0 left-64 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-3xl -z-10 animate-glow" style="animation-delay: 2s;"></div>
+
+    <!-- FIXED LEFT SIDEBAR -->
+    <aside class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between flex-shrink-0 relative z-20">
+      <!-- Sidebar Header / Logo -->
+      <div>
+        <div class="h-20 flex items-center px-6 border-b border-slate-800">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-md font-bold tracking-tight text-slate-100">SaaS Admin Pro</h2>
+              <span class="text-[10px] font-semibold text-cyan-400 uppercase tracking-widest">Enterprise</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Navigation Links -->
+        <nav class="mt-6 px-4 space-y-1.5">
+          <a href="dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gradient-to-r from-cyan-500/10 to-transparent text-cyan-400 border-l-4 border-cyan-500 font-semibold text-sm transition-all duration-150">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2a2 2 0 002-2zm6-5V1l-2 2H5m0 0l2 2m-2-2v6a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2H5" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+            <span>Dashboard</span>
+          </a>
+          <a href="inventario.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 font-medium text-sm transition-all duration-150 border-l-4 border-transparent">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+            </svg>
+            <span>Inventario</span>
+          </a>
+          <a href="pos.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 font-medium text-sm transition-all duration-150 border-l-4 border-transparent">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span>Punto de Venta (POS)</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Active User Profile Section -->
+      <div class="p-4 border-t border-slate-800">
+        <div class="flex items-center space-x-3 p-2 bg-slate-950/50 border border-slate-800/80 rounded-xl mb-3">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center font-bold text-slate-300 border border-slate-700 text-sm" id="user-avatar">
+            AD
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-xs font-bold text-slate-200 truncate" id="user-name">Administrador</p>
+            <span class="text-[9px] font-semibold text-slate-500 uppercase tracking-wide block" id="user-role">ADMINISTRADOR</span>
+          </div>
+        </div>
+        
+        <!-- Logout Button -->
+        <button id="logout-btn" class="w-full flex items-center justify-center space-x-2 py-2.5 px-4 bg-slate-800 hover:bg-red-950/30 hover:text-red-400 hover:border-red-900/50 border border-slate-700 rounded-xl text-slate-400 text-xs font-semibold transition-all duration-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          <span>Cerrar Sesión</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN DASHBOARD PANEL -->
+    <main class="flex-1 min-h-screen flex flex-col overflow-hidden relative z-10">
+      
+      <!-- Top Header -->
+      <header class="h-20 border-b border-slate-800 flex items-center justify-between px-8 bg-slate-900/40 backdrop-blur-md flex-shrink-0">
+        <div>
+          <h1 class="text-2xl font-extrabold tracking-tight text-white">
+            Dashboard Financiero
+          </h1>
+          <p class="text-xs text-slate-400 mt-0.5" id="welcome-greeting">
+            Cargando inteligencia comercial...
+          </p>
+        </div>
+
+        <!-- Quick Action Toolbar -->
+        <div class="flex items-center space-x-3">
+          <select id="locale-switcher" class="hidden px-3 py-1.5 bg-slate-800/80 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-bold text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer transition-colors duration-150">
+            <!-- Populated via JS -->
+          </select>
+          <button id="reset-db-btn" class="px-3 py-1.5 bg-slate-800/80 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-bold text-slate-300 transition-colors duration-150 flex items-center space-x-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H18" />
+            </svg>
+            <span>Restablecer Datos</span>
+          </button>
+          <div class="h-4 w-[1px] bg-slate-800"></div>
+          <span class="text-xs text-slate-400 font-semibold bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700/50">
+            Periodo: <span class="text-cyan-400">Mensual</span>
+          </span>
+        </div>
+      </header>
+
+      <!-- Main Scrollable Content Area -->
+      <div class="flex-1 overflow-y-auto p-8 space-y-8">
+        
+        <!-- OPERATIONAL FIXED COST CONTROLLER -->
+        <div class="glass-panel p-4 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-l-4 border-l-cyan-500 shadow-xl">
+          <div class="flex items-center space-x-3">
+            <div class="p-2.5 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+              <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-sm font-extrabold text-slate-100">Costos Operativos Fijos</h4>
+              <p class="text-[10px] text-slate-500">Edite los costos fijos (arriendo, servicios) para recalcular la Ganancia Neta Real.</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-2.5 bg-slate-950/80 px-4 py-2 border border-slate-850 rounded-xl w-full sm:w-auto justify-end">
+            <span class="text-xs text-slate-400 font-bold">$</span>
+            <input type="number" id="fixed-cost-input" min="0" step="50" placeholder="1200" 
+              class="w-24 bg-transparent border-0 text-slate-200 text-xs font-black text-right focus:outline-none focus:ring-0">
+            <button id="save-fixed-cost-btn" class="ml-2 px-2.5 py-1 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-[10px] uppercase rounded-lg transition-colors duration-150">
+              Aplicar
+            </button>
+          </div>
+        </div>
+
+        <!-- GRID OF 4 METRIC CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- CARD 1: INGRESOS BRUTOS -->
+          <div class="glass-panel p-6 rounded-2xl relative overflow-hidden group shadow-xl">
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-cyan-500/5 rounded-full group-hover:scale-125 transition-transform duration-300"></div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ingresos Brutos</span>
+              <div class="p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-3xl font-extrabold tracking-tight text-white" id="metric-gross-revenue">$0.00</h3>
+              <p class="text-xs text-slate-500 font-medium">Suma total facturada</p>
+            </div>
+          </div>
+
+          <!-- CARD 2: COGS -->
+          <div class="glass-panel p-6 rounded-2xl relative overflow-hidden group shadow-xl">
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-amber-500/5 rounded-full group-hover:scale-125 transition-transform duration-300"></div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Costo de Venta (COGS)</span>
+              <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-3xl font-extrabold tracking-tight text-white" id="metric-cogs">$0.00</h3>
+              <p class="text-xs text-slate-500 font-medium">Costo de adquisición de stock</p>
+            </div>
+          </div>
+
+          <!-- CARD 3: GANANCIA NETA -->
+          <div class="glass-panel p-6 rounded-2xl relative overflow-hidden group shadow-xl border-l-4 border-l-emerald-500">
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-emerald-500/5 rounded-full group-hover:scale-125 transition-transform duration-300"></div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Ganancia Neta Real</span>
+              <div id="net-margin-badge" class="px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold flex items-center space-x-1">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                </svg>
+                <span id="metric-net-percentage">0%</span>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-3xl font-extrabold tracking-tight text-emerald-400" id="metric-net-profit">$0.00</h3>
+              <p class="text-xs text-slate-500 font-medium" id="fixed-cost-label">Costo Fijo deducido</p>
+            </div>
+          </div>
+
+          <!-- CARD 4: VALOR INVENTARIO -->
+          <div class="glass-panel p-6 rounded-2xl relative overflow-hidden group shadow-xl">
+            <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-indigo-500/5 rounded-full group-hover:scale-125 transition-transform duration-300"></div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Valor del Inventario</span>
+              <div class="p-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <h3 class="text-3xl font-extrabold tracking-tight text-white" id="metric-inventory-value">$0.00</h3>
+              <p class="text-xs text-slate-500 font-medium">Suma de costo de bienes en stock</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHARTS SECTION GRID -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- CHART 1: LINE CHART -->
+          <div class="lg:col-span-2 glass-panel p-6 rounded-2xl shadow-xl flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <h4 class="text-lg font-bold text-white tracking-tight">Comparativa Mensual</h4>
+                <p class="text-xs text-slate-500 font-medium">Facturación vs Costos Totales (COGS + Fijos)</p>
+              </div>
+              <div class="flex items-center space-x-4 text-xs font-semibold">
+                <span class="flex items-center space-x-1.5">
+                  <span class="w-3 h-3 rounded-full bg-cyan-500"></span>
+                  <span class="text-slate-300">Ingresos</span>
+                </span>
+                <span class="flex items-center space-x-1.5">
+                  <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                  <span class="text-slate-300">Costos</span>
+                </span>
+              </div>
+            </div>
+            <div class="relative h-80 w-full">
+              <canvas id="trendChart"></canvas>
+            </div>
+          </div>
+
+          <!-- CHART 2: BAR CHART -->
+          <div class="glass-panel p-6 rounded-2xl shadow-xl flex flex-col justify-between">
+            <div>
+              <h4 class="text-lg font-bold text-white tracking-tight">Top 5 Productos Rentables</h4>
+              <p class="text-xs text-slate-500 font-medium">Basado en margen neto unitario real ($)</p>
+            </div>
+            <div class="relative h-80 w-full mt-6">
+              <canvas id="profitabilityChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECENT SALES HISTORY TABLE -->
+        <div class="glass-panel p-6 rounded-2xl shadow-xl space-y-4">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <div>
+              <h4 class="text-lg font-extrabold text-white tracking-tight">Historial de Ventas Recientes</h4>
+              <p class="text-xs text-slate-550">Lista cronológica de transacciones registradas desde el Punto de Venta.</p>
+            </div>
+            <span class="text-[10px] font-bold px-2.5 py-1 bg-slate-800 text-slate-400 rounded-lg border border-slate-700/50 uppercase tracking-widest">
+              Live Feed
+            </span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-900 border-b border-slate-800 text-slate-400 text-[10px] font-bold uppercase tracking-wider">
+                  <th class="px-5 py-3">ID Venta</th>
+                  <th class="px-5 py-3">Fecha y Hora</th>
+                  <th class="px-5 py-3">Detalle Productos</th>
+                  <th class="px-5 py-3 text-center">Método de Pago</th>
+                  <th class="px-5 py-3 text-right">Total Facturado</th>
+                </tr>
+              </thead>
+              <tbody id="recent-sales-body" class="divide-y divide-slate-800/50 text-slate-200 text-xs">
+                <!-- Dynamically populated via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Unified Database Module -->
+  <script src="js/db.js"></script>
+  <!-- Chart.js via CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Dashboard Logic script -->
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-950">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaaS Admin Pro - Punto de Venta</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Punto de venta fast-POS optimizado, selector de método de pago, cálculo instantáneo de vuelto y decremento de stock automático.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/global.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            slate: {
+              950: '#0b0f19',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-full flex flex-col bg-slate-950 text-slate-100 font-sans antialiased overflow-hidden select-none">
+  
+  <!-- Content Wrapper -->
+  <div class="flex-1 flex overflow-hidden relative w-full">
+    
+    <!-- BACKGROUND GRADIENTS -->
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-600/5 rounded-full blur-3xl -z-10 animate-glow"></div>
+    <div class="absolute bottom-0 left-64 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-3xl -z-10 animate-glow" style="animation-delay: 2s;"></div>
+
+    <!-- FLOATING MODERN TOAST (Success message) -->
+    <div id="toast-success" class="hidden fixed top-6 right-6 z-50 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-sm flex items-center space-x-3 shadow-2xl backdrop-blur-md animate-fade-in">
+      <div class="p-1.5 rounded-lg bg-emerald-500/20 text-emerald-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <div>
+        <span class="font-bold block text-white">¡Venta Confirmada!</span>
+        <span class="text-xs text-slate-300">El stock y las finanzas han sido actualizados.</span>
+      </div>
+    </div>
+
+    <!-- FIXED LEFT SIDEBAR -->
+    <aside id="pos-sidebar" class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col justify-between flex-shrink-0 relative z-20">
+      <!-- Sidebar Header / Logo -->
+      <div>
+        <div class="h-20 flex items-center px-6 border-b border-slate-800">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h2 class="text-md font-bold tracking-tight text-slate-100">SaaS Admin Pro</h2>
+              <span class="text-[10px] font-semibold text-cyan-400 uppercase tracking-widest">Enterprise</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Navigation Links -->
+        <nav class="mt-6 px-4 space-y-1.5" id="sidebar-nav">
+          <!-- Dashboard Link (Conditionally enabled) -->
+          <a href="dashboard.html" id="nav-dashboard" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 font-medium text-sm transition-all duration-150 border-l-4 border-transparent">
+            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2a2 2 0 002-2zm6-5V1l-2 2H5m0 0l2 2m-2-2v6a2 2 0 002 2h2a2 2 0 002-2V9a2 2 0 00-2-2H5" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+            <span class="flex-1">Dashboard</span>
+            <svg class="w-3.5 h-3.5 text-slate-600 hidden" id="lock-dashboard" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </a>
+          
+          <!-- Inventory Link (Conditionally enabled) -->
+          <a href="inventario.html" id="nav-inventario" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-slate-800/50 hover:text-slate-200 font-medium text-sm transition-all duration-150 border-l-4 border-transparent">
+            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+            </svg>
+            <span class="flex-1">Inventario</span>
+            <svg class="w-3.5 h-3.5 text-slate-600 hidden" id="lock-inventario" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </a>
+
+          <!-- POS Link (Active) -->
+          <a href="pos.html" class="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gradient-to-r from-cyan-500/10 to-transparent text-cyan-400 border-l-4 border-cyan-500 font-semibold text-sm transition-all duration-150">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            <span>Punto de Venta (POS)</span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Active User Profile Section -->
+      <div class="p-4 border-t border-slate-800">
+        <div class="flex items-center space-x-3 p-2 bg-slate-950/50 border border-slate-800/80 rounded-xl mb-3">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center font-bold text-slate-300 border border-slate-700 text-sm" id="user-avatar">
+            CA
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-xs font-bold text-slate-200 truncate" id="user-name">Cajero</p>
+            <span class="text-[9px] font-semibold text-slate-500 uppercase tracking-wide block" id="user-role">CAJERO</span>
+          </div>
+        </div>
+        
+        <!-- Logout Button -->
+        <button id="logout-btn" class="w-full flex items-center justify-center space-x-2 py-2.5 px-4 bg-slate-800 hover:bg-red-950/30 hover:text-red-400 hover:border-red-900/50 border border-slate-700 rounded-xl text-slate-400 text-xs font-semibold transition-all duration-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          <span>Cerrar Sesión</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN OPERATIVE WINDOW -->
+    <main class="flex-1 min-h-screen flex flex-col overflow-hidden relative z-10">
+      
+      <!-- Top Header -->
+      <header class="h-20 border-b border-slate-800 flex items-center justify-between px-8 bg-slate-900/40 backdrop-blur-md flex-shrink-0">
+        <div>
+          <h1 class="text-2xl font-extrabold tracking-tight text-white" id="pos-main-title">
+            Terminal de Ventas (P.O.S.)
+          </h1>
+          <p class="text-xs text-slate-400 mt-0.5" id="pos-caja-status">
+            Caja abierta | Cajero: Lucía Gómez
+          </p>
+        </div>
+
+        <div class="flex-1 flex justify-center px-8">
+          <!-- CAJERO MASTER INPUT -->
+          <div id="cajero-scan-container" class="hidden relative w-full max-w-lg">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-cyan-400">
+              <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-8m0 0H4m4 0h4m-4-8h8m-4 4h4m-4-8v8" />
+              </svg>
+            </div>
+            <input type="text" id="cajero-scan-input" placeholder="🔍 Escanear Pedido de Vendedor (Ej. PED-1234) o QR..." 
+              class="w-full pl-10 pr-4 py-2 bg-slate-800 border-2 border-cyan-500/50 rounded-xl text-slate-100 placeholder-slate-400 font-bold focus:outline-none focus:border-cyan-400 focus:ring-4 focus:ring-cyan-500/20 transition-all shadow-[0_0_15px_rgba(6,182,212,0.15)] text-sm uppercase">
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <button id="header-logout-btn" class="hidden px-3 py-1.5 bg-slate-800 hover:bg-red-950/40 border border-slate-700 hover:border-red-900/50 text-slate-400 hover:text-red-400 rounded-lg text-xs font-bold transition-all duration-150 flex items-center space-x-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span>Salir</span>
+          </button>
+          <select id="locale-switcher" class="hidden px-3 py-1.5 bg-slate-800/80 hover:bg-slate-700 border border-slate-700 rounded-lg text-xs font-bold text-slate-300 focus:outline-none focus:border-cyan-500 cursor-pointer transition-colors duration-150">
+            <!-- Populated via JS -->
+          </select>
+          <span class="text-xs text-emerald-400 font-semibold bg-emerald-950/40 border border-emerald-900/40 px-3 py-1.5 rounded-xl flex items-center space-x-1.5">
+            <span class="w-2 h-2 bg-emerald-400 rounded-full animate-ping"></span>
+            <span>Online</span>
+          </span>
+        </div>
+      </header>
+
+      <!-- OPERATIVE LAYOUT SPLIT PANE -->
+      <div class="flex-1 grid grid-cols-1 lg:grid-cols-5 overflow-hidden p-6 gap-6">
+        
+        <!-- LEFT SIDE: PRODUCT CATALOG (Grid and search) - col-span-3 -->
+        <section class="lg:col-span-3 flex flex-col space-y-4 overflow-hidden h-full">
+          <!-- Search and category bar -->
+          <div class="bg-slate-900/60 p-4 border border-slate-800 rounded-2xl space-y-3.5 flex-shrink-0">
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <input type="text" id="pos-search" placeholder="Búsqueda rápida por nombre o SKU..." 
+                class="w-full pl-11 pr-4 py-2.5 bg-slate-800/70 border border-slate-700/60 rounded-xl text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/20 transition-all duration-200 text-sm">
+            </div>
+
+            <!-- Category Tags Filter -->
+            <div class="flex items-center space-x-2 overflow-x-auto pb-1" id="category-filter-container">
+              <button class="category-tag px-3.5 py-1.5 rounded-lg bg-cyan-500 text-slate-950 font-extrabold text-xs transition-all duration-150 shadow-md shadow-cyan-500/10" data-category="Todos">
+                Todos
+              </button>
+              <button class="category-tag px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-300 font-semibold text-xs transition-all duration-150" data-category="Tecnología">
+                Tecnología
+              </button>
+              <button class="category-tag px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-300 font-semibold text-xs transition-all duration-150" data-category="Accesorios">
+                Accesorios
+              </button>
+              <button class="category-tag px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-750 text-slate-300 font-semibold text-xs transition-all duration-150" data-category="Deporte">
+                Deporte
+              </button>
+            </div>
+          </div>
+
+          <!-- Catalog Grid Container -->
+          <div class="flex-1 overflow-y-auto pr-1">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 animate-fade-in" id="pos-catalog-grid">
+              <!-- Dynamically populated via JS -->
+            </div>
+
+            <!-- Empty Catalog Alert -->
+            <div id="catalog-empty-state" class="hidden py-16 flex flex-col items-center justify-center text-center space-y-3">
+              <div class="p-3 bg-slate-900 border border-slate-800 rounded-full text-slate-600">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h5 class="text-sm font-bold text-slate-300">No se encontraron coincidencias</h5>
+                <p class="text-xs text-slate-550">Modifique los términos de búsqueda o verifique los filtros de categoría.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- RIGHT SIDE: SHOPPING CART & TOTAL CLOSURE - col-span-2 -->
+        <section class="lg:col-span-2 flex flex-col h-full overflow-hidden">
+          <div class="glass-panel border border-slate-800 rounded-2xl shadow-2xl flex flex-col h-full overflow-hidden">
+            
+            <!-- Cart Header -->
+            <div class="px-5 py-4 border-b border-slate-800/80 bg-slate-900/30 flex items-center justify-between flex-shrink-0">
+              <div class="flex items-center space-x-2">
+                <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+                <h3 class="font-extrabold text-white text-sm uppercase tracking-wider">Detalle del Carrito</h3>
+              </div>
+              <button id="clear-cart-btn" class="px-2 py-1 rounded hover:bg-rose-950/20 text-slate-500 hover:text-rose-400 font-bold text-[10px] uppercase transition-all duration-150">
+                Vaciar
+              </button>
+            </div>
+
+            <!-- Cart Item List Container -->
+            <div class="flex-1 overflow-y-auto p-4 space-y-3" id="pos-cart-items">
+              <!-- Dynamically populated via JS -->
+            </div>
+
+            <!-- Totals Desglose Panel -->
+            <div class="p-4 border-t border-slate-800 bg-slate-900/70 flex-shrink-0 space-y-2 text-xs font-semibold text-slate-400">
+              <div class="flex justify-between">
+                <span>Subtotal</span>
+                <span id="pos-subtotal" class="text-slate-200 font-medium">$0.00</span>
+              </div>
+              <div class="flex justify-between items-center" id="pos-discount-container">
+                <span>Descuento Avanzado</span>
+                <div class="relative w-32">
+                  <input type="text" id="pos-discount-input" placeholder="CÓDIGO" class="w-full px-2 py-1 bg-slate-800 border border-slate-700 rounded text-xs text-slate-200 font-bold focus:outline-none focus:border-cyan-500 text-right uppercase">
+                </div>
+              </div>
+              <div class="flex justify-between">
+                <span>Impuestos (IVA 19%)</span>
+                <span id="pos-tax" class="text-slate-200 font-medium">$0.00</span>
+              </div>
+              <div class="h-[1px] bg-slate-800 my-1"></div>
+              <div class="flex justify-between items-center py-1">
+                <span class="text-sm font-bold text-white uppercase tracking-wider">Total a Pagar</span>
+                <span id="pos-total" class="text-2xl font-extrabold text-cyan-400">$0.00</span>
+              </div>
+            </div>
+
+            <!-- Checkout / Payment Panel -->
+            <div id="checkout-panel" class="p-4 border-t border-slate-800 bg-slate-950/80 flex-shrink-0 space-y-4">
+              
+              <!-- Payment Methods Toggle Buttons -->
+              <div>
+                <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Método de Pago</span>
+                <div class="grid grid-cols-3 gap-2">
+                  <button class="pay-method-btn py-2.5 rounded-xl border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 font-bold text-xs flex flex-col items-center justify-center space-y-1 transition-all duration-150" data-method="Efectivo">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span>Efectivo</span>
+                  </button>
+                  <button class="pay-method-btn py-2.5 rounded-xl border border-slate-800 bg-slate-900/50 hover:bg-slate-800 text-slate-400 font-semibold text-xs flex flex-col items-center justify-center space-y-1 transition-all duration-150" data-method="Tarjeta">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                    </svg>
+                    <span>Tarjeta</span>
+                  </button>
+                  <button class="pay-method-btn py-2.5 rounded-xl border border-slate-800 bg-slate-900/50 hover:bg-slate-800 text-slate-400 font-semibold text-xs flex flex-col items-center justify-center space-y-1 transition-all duration-150" data-method="Transferencia">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                    </svg>
+                    <span>Transf.</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Cash Received and Change Box -->
+              <div id="change-calculator-section" class="grid grid-cols-2 gap-4">
+                <div>
+                  <label for="pos-cash-input" class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Paga con ($)</label>
+                  <input type="number" id="pos-cash-input" min="0" step="0.01" placeholder="0.00" 
+                    class="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-slate-200 placeholder-slate-650 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-sm font-bold text-right">
+                </div>
+                <div>
+                  <span class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Vuelto exacto</span>
+                  <div id="pos-change-output" class="w-full px-3 py-2.5 bg-slate-900 border border-slate-800 rounded-xl text-slate-400 font-extrabold text-sm text-right">
+                    $0.00
+                  </div>
+                </div>
+              </div>
+
+              <!-- Confirm Button -->
+              <button id="pos-confirm-btn" disabled 
+                class="w-full py-3.5 bg-slate-800 text-slate-500 font-extrabold rounded-xl transition-all duration-300 shadow-lg cursor-not-allowed flex items-center justify-center space-x-2 text-sm">
+                <svg class="w-5 h-5" id="btn-icon-confirm" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 0-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                </svg>
+                <span id="btn-text-confirm">Confirmar Venta</span>
+              </button>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- FLOATING MODAL: DETAILED SALES TICKET RECEIPT -->
+  <div id="receipt-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 backdrop-blur-sm p-4">
+    <div class="w-full max-w-sm flex flex-col items-center space-y-4">
+      
+      <!-- Receipt paper body container (Classic white paper terminal roll style!) -->
+      <div id="receipt-paper" class="w-full bg-[#f8f9fa] border border-[#e9ecef] shadow-2xl p-6 rounded-lg text-slate-900 font-mono text-[11px] leading-relaxed flex flex-col space-y-3.5 select-text relative overflow-hidden">
+        
+        <!-- Classic Paper tearing effect line at the top -->
+        <div class="absolute top-0 left-0 right-0 h-1.5 bg-slate-350 opacity-15" style="background-image: radial-gradient(circle, #000 30%, transparent 40%); background-size: 8px 8px; background-position: -4px -4px;"></div>
+        
+        <!-- Header -->
+        <div class="text-center pt-2">
+          <h3 class="text-xs font-black tracking-wider text-slate-950 block uppercase">SaaS Admin Pro Ltd</h3>
+          <p class="text-[9px] text-slate-500 uppercase mt-0.5">Av. de la Inteligencia Comercial #742</p>
+          <p class="text-[9px] text-slate-550 block font-bold mt-2 uppercase">Boleta de Venta Electrónica</p>
+        </div>
+
+        <div class="border-b border-dashed border-slate-400 py-1">
+          <div class="flex justify-between">
+            <span>Boleta ID:</span>
+            <span class="font-bold text-slate-950" id="receipt-id">V-000</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Fecha:</span>
+            <span id="receipt-date">00/00/0000 00:00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Operador:</span>
+            <span id="receipt-cashier">Cajero</span>
+          </div>
+        </div>
+
+        <!-- Sold Items Ledger Table -->
+        <div class="space-y-1.5 py-1">
+          <div class="flex justify-between text-slate-950 font-bold border-b border-slate-300 pb-1 text-[10px]">
+            <span>Detalle Producto</span>
+            <span>Subtotal</span>
+          </div>
+          <div id="receipt-items-list" class="space-y-1.5">
+            <!-- Dynamic rows of items -->
+          </div>
+        </div>
+
+        <!-- Totals Ledger -->
+        <div class="border-t border-dashed border-slate-400 pt-2.5 space-y-1">
+          <div class="flex justify-between">
+            <span>Subtotal</span>
+            <span id="receipt-subtotal">$0.00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Descuento aplicado:</span>
+            <span id="receipt-discount">0%</span>
+          </div>
+          <div class="flex justify-between">
+            <span>IVA Incluido (19%)</span>
+            <span id="receipt-tax">$0.00</span>
+          </div>
+          <div class="flex justify-between text-xs font-black text-slate-950 pt-1 border-t border-slate-300">
+            <span>TOTAL PAGADO</span>
+            <span id="receipt-total">$0.00</span>
+          </div>
+        </div>
+
+        <!-- Payment Method metadata -->
+        <div class="border-t border-dashed border-slate-400 pt-2.5">
+          <div class="flex justify-between">
+            <span>Método de Pago:</span>
+            <span class="font-bold" id="receipt-method">Efectivo</span>
+          </div>
+          <div class="flex justify-between" id="receipt-cash-row">
+            <span>Recibido:</span>
+            <span id="receipt-cash-paid">$0.00</span>
+          </div>
+          <div class="flex justify-between text-slate-950 font-bold" id="receipt-change-row">
+            <span>Vuelto Entregado:</span>
+            <span id="receipt-change-given">$0.00</span>
+          </div>
+        </div>
+
+        <!-- Thank you Footer -->
+        <div class="text-center border-t border-dashed border-slate-400 pt-3 pb-1">
+          <p class="text-[9px] font-bold text-slate-950 uppercase tracking-widest">¡Gracias por su Preferencia!</p>
+          <p class="text-[8px] text-slate-400 mt-1 uppercase">Resolución SII Simulado N°45</p>
+        </div>
+
+      </div>
+
+      <!-- Action buttons underneath the paper sheet -->
+      <div class="flex space-x-3 w-full relative z-20">
+        <button id="receipt-print-btn" class="flex-1 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-750 text-white font-bold rounded-xl text-xs flex items-center justify-center space-x-1.5 transition-colors duration-150">
+          <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+          </svg>
+          <span>Imprimir Boleta</span>
+        </button>
+        <button id="receipt-done-btn" class="flex-1 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-black rounded-xl text-xs flex items-center justify-center space-x-1.5 shadow-lg shadow-cyan-500/10 transition-all duration-150">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>Listo / Nueva Venta</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FLOATING MODAL: PRESALE TICKET -->
+  <div id="presale-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 backdrop-blur-sm p-4">
+    <div class="w-full max-w-sm flex flex-col items-center space-y-4">
+      
+      <div class="w-full bg-cyan-500 rounded-t-2xl p-6 text-center shadow-[0_-10px_40px_rgba(6,182,212,0.3)]">
+        <h3 class="text-xl font-black text-slate-950 uppercase tracking-widest">Nota de Pedido</h3>
+        <p class="text-xs text-slate-900 font-bold mt-1">Acérquese a caja con este código</p>
+      </div>
+      
+      <div class="w-full bg-slate-100 shadow-2xl p-6 rounded-b-2xl text-slate-900 font-mono text-sm flex flex-col items-center space-y-6">
+        
+        <div class="text-4xl font-extrabold text-slate-950 tracking-widest" id="presale-id-display">PED-0000</div>
+        
+        <!-- Simulated Barcode -->
+        <div class="w-full h-16 flex justify-between bg-white px-2">
+          <div class="w-1 bg-black h-full"></div>
+          <div class="w-2 bg-black h-full"></div>
+          <div class="w-1 bg-black h-full"></div>
+          <div class="w-3 bg-black h-full"></div>
+          <div class="w-1.5 bg-black h-full"></div>
+          <div class="w-1 bg-black h-full"></div>
+          <div class="w-2 bg-black h-full"></div>
+          <div class="w-4 bg-black h-full"></div>
+          <div class="w-1 bg-black h-full"></div>
+          <div class="w-2.5 bg-black h-full"></div>
+          <div class="w-1 bg-black h-full"></div>
+          <div class="w-1.5 bg-black h-full"></div>
+          <div class="w-3 bg-black h-full"></div>
+        </div>
+        
+        <button id="presale-done-btn" class="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-sm transition-colors duration-150">
+          Nueva Preventa
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Unified Database Module -->
+  <script src="js/db.js"></script>
+  <!-- POS Logic script -->
+  <script src="js/pos.js"></script>
+</body>
+</html>

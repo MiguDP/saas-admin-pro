@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SaaS Admin Pro - Autenticación</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Plataforma profesional de administración comercial e inteligencia financiera para pequeños negocios. Acceso seguro.">
+  
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/global.css">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            slate: {
+              950: '#0b0f19',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="min-h-full flex items-center justify-center bg-slate-950 text-slate-100 px-4 relative overflow-hidden select-none">
+  
+  <!-- Background glowing blur decorations -->
+  <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl -z-10 animate-glow"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl -z-10 animate-glow" style="animation-delay: 1.5s;"></div>
+
+  <!-- Central Card -->
+  <div class="w-full max-w-md p-8 rounded-2xl glass-panel shadow-2xl animate-fade-in relative">
+    
+    <!-- Decorative upper bar -->
+    <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 rounded-t-2xl"></div>
+
+    <!-- Header Section -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 text-cyan-400 mb-4 shadow-inner">
+        <!-- SVG Brand Logo Icon -->
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h1 class="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-white via-slate-100 to-slate-300 bg-clip-text text-transparent">
+        SaaS Admin Pro
+      </h1>
+      <p class="text-sm text-slate-400 mt-2 font-medium">
+        Inteligencia Comercial y Financiera
+      </p>
+    </div>
+
+    <!-- Error Toast Notification (Hidden by default) -->
+    <div id="error-alert" class="hidden mb-5 p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm flex items-start space-x-2.5 transition-all duration-300">
+      <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+      <div class="flex-1">
+        <span class="font-bold">Error de acceso:</span>
+        <span id="error-message">Credenciales incorrectas.</span>
+      </div>
+    </div>
+
+    <!-- Form Section -->
+    <form id="login-form" class="space-y-5" novalidate>
+      <div>
+        <label for="email" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Correo Electrónico</label>
+        <div class="relative group">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-indigo-400 transition-colors">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <input type="email" id="email" class="w-full bg-slate-900/50 border border-slate-700/60 rounded-xl py-3 pl-11 pr-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all text-sm" placeholder="tu@empresa.com">
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between mb-2">
+          <label for="password" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider">Contraseña</label>
+          <a href="#" class="text-xs font-medium text-indigo-400 hover:text-indigo-300 transition-colors">¿Olvidaste tu clave?</a>
+        </div>
+        <div class="relative group">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-indigo-400 transition-colors">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          <input type="password" id="password" class="w-full bg-slate-900/50 border border-slate-700/60 rounded-xl py-3 pl-11 pr-12 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all text-sm" placeholder="••••••••">
+          <button type="button" id="toggle-password" class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-500 hover:text-slate-300 transition-colors focus:outline-none">
+            <svg id="eye-icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" id="submit-btn" class="relative w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold py-3.5 px-4 rounded-xl shadow-lg shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-blue-500 flex items-center justify-center overflow-hidden">
+        <span id="btn-text" class="relative z-10 flex items-center">
+          Ingresar
+        </span>
+        <svg id="btn-spinner" class="animate-spin ml-2 h-5 w-5 text-white hidden relative z-10" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </button>
+    </form>
+
+    <!-- LOCALE SELECTOR (Hidden by default) -->
+    <div id="locale-selector" class="hidden animate-fade-in">
+      <div class="mb-6 text-center">
+        <h3 class="text-xl font-bold text-white mb-2">Selecciona un Entorno</h3>
+        <p class="text-sm text-slate-400">¿A qué sucursal deseas acceder hoy?</p>
+      </div>
+      
+      <div class="space-y-3" id="locales-list">
+        <!-- Locales injected by auth.js -->
+      </div>
+      
+      <div class="mt-6">
+        <button type="button" id="global-dashboard-btn" class="w-full py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-sm font-bold border border-slate-700 hover:border-slate-600 transition-colors flex items-center justify-center shadow-lg">
+          <svg class="w-5 h-5 mr-2 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          Ver Visión Global (Consolidado)
+        </button>
+      </div>
+    </div>
+
+    <!-- Visual Hint/Credentials box -->
+    <div class="mt-6 pt-5 border-t border-slate-700/50 text-center">
+      <p class="text-xs text-slate-500 font-medium">Credenciales del sistema:</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+        <div class="p-2 bg-slate-800/40 rounded-lg text-[10px] text-slate-400 border border-slate-800 text-left">
+          <span class="font-bold text-indigo-400 block">SuperAdmin (Dueño SaaS):</span>
+          <span>creator@saaspro.com<br>clave: creator123</span>
+        </div>
+        <div class="p-2 bg-slate-800/40 rounded-lg text-[10px] text-slate-400 border border-slate-800 text-left">
+          <span class="font-bold text-cyan-400 block">Admin Cliente (Cencosud):</span>
+          <span>admin@cencosud.com<br>clave: admin123</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Unified local database loading -->
+  <script src="js/db.js"></script>
+  <!-- Authentication Logic -->
+  <script src="js/auth.js"></script>
+</body>
+</html>
